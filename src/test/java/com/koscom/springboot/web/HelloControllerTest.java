@@ -15,10 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 
-
 //controller만 테스트할거라서 MvcTest를 명시한다.
-
-@WebMvcTest
+@WebMvcTest(controllers = HelloController.class)
 public class HelloControllerTest {
 
     //Bean을 주입하는 것
