@@ -1,6 +1,7 @@
 package com.koscom.springboot.web.dto;
 
 import com.koscom.springboot.service.PostsService;
+import com.koscom.springboot.web.dto.posts.PostResponseDto;
 import com.koscom.springboot.web.dto.posts.PostsSaveRequestDto;
 import com.koscom.springboot.web.dto.posts.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,10 @@ public class PostsApiController {
     @PutMapping("/api/v1/posts/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto dto){
         return postsService.update(id, dto);
+    }
+
+    @GetMapping("/api/v1/posts/{id}")
+    public PostResponseDto findById (@PathVariable Long id) {
+        return postsService.findById(id);
     }
 }

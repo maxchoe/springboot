@@ -2,12 +2,14 @@ package com.koscom.springboot.service;
 
 import com.koscom.springboot.domain.posts.Posts;
 import com.koscom.springboot.domain.posts.PostsRepository;
+import com.koscom.springboot.web.dto.posts.PostResponseDto;
 import com.koscom.springboot.web.dto.posts.PostsSaveRequestDto;
 import com.koscom.springboot.web.dto.posts.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service // spring bean 등록 & Service 클래스 선언
@@ -30,5 +32,12 @@ public class PostsService {
         entity.update(updateDto.getTitle(), updateDto.getContent());
 
         return entity.getId();
+    }
+
+    //조회
+    public PostResponseDto findById(Long id){
+        Posts entity = postsRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당사용자는 없습니다. id =" + id));
+        return new PostResponseDto(entity);
     }
 }

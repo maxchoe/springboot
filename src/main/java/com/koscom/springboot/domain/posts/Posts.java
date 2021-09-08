@@ -1,5 +1,6 @@
 package com.koscom.springboot.domain.posts;
 
+import com.koscom.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor //디폴트 생성자를 만들어준다. - 개발자가 생성자를 생성하는 경우 디폴트 생성자가 안생기는 경우를 염두하여
 @Entity
 
-public class Posts {
+public class Posts extends BaseTimeEntity {
     @Id //PK
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 채번 방식
     private Long id; //pk (bigint, auto increment)
