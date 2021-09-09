@@ -2,6 +2,7 @@ package com.koscom.springboot.service;
 
 import com.koscom.springboot.domain.posts.Posts;
 import com.koscom.springboot.domain.posts.PostsRepository;
+import com.koscom.springboot.web.dto.PostsListResponseDto;
 import com.koscom.springboot.web.dto.posts.PostResponseDto;
 import com.koscom.springboot.web.dto.posts.PostsSaveRequestDto;
 import com.koscom.springboot.web.dto.posts.PostsUpdateRequestDto;
@@ -9,7 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service // spring bean 등록 & Service 클래스 선언
@@ -40,4 +42,22 @@ public class PostsService {
                 .orElseThrow(()->new IllegalArgumentException("해당사용자는 없습니다. id =" + id));
         return new PostResponseDto(entity);
     }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc() {
+        // java 7까지 방식
+//        List<Posts> allDesc = postsRepository.findAllDesc();
+//        List<PostsListResponseDto> result = new ArrayList<>();
+//
+//        for (Posts posts : allDesc) {
+//            result.add(new PostsListResponseDto(posts));
+//        }
+//
+//        return result;
+
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
 }
